@@ -30,7 +30,7 @@ fi
 
 if [ -z "$PY" ]; then
   echo "[planning-kit launch] Python(python3/python/py)을 찾지 못했습니다 — 조용한 폴백 금지." >&2
-  echo "  OS별 설치는 온보딩(docs/onboarding.html)을 따르세요." >&2
+  echo "  OS별 설치는 온보딩(planning-kit-온보딩.html)을 따르세요." >&2
   if [ "$GUARD" = "1" ]; then
     exit 2     # 가드: 보호 불가 → 쓰기 차단(fail-closed)
   fi

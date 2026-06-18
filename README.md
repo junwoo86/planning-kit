@@ -19,7 +19,7 @@
 
 ## 2. 빠른 시작 (3단계)
 
-> 🛠️ **처음 설치라면 먼저** → [docs/onboarding.html](docs/onboarding.html) (VSCode/Cursor · Claude Code · Python · Git Bash · Notion 연동 — OS별 비개발자 설치 가이드). 아래 3단계는 **환경이 준비된 상태** 기준입니다.
+> 🛠️ **처음 설치라면 먼저** → [planning-kit-온보딩.html](planning-kit-온보딩.html) (VSCode/Cursor · Claude Code · Python · Git Bash · 킷 받기 · Notion 연동 — OS별 비개발자 설치 가이드). 아래 3단계는 **환경이 준비된 상태** 기준입니다.
 
 1. **맥락 파일을 둡니다** → `inputs/<주제-slug>/`에 가진 자료를 넣습니다 (아래 §3).
 2. **시작합니다** → 채팅에 **`/strategy-plan`** 입력 (또는 "전략기획 시작"·"기획 하네스"라고 말해도 됩니다).
@@ -171,10 +171,10 @@ PRD의 모든 줄에는 출처 태그가 붙습니다. **AI가 메운 부분을 
 planning-kit/
 ├── README.md                     ← (지금 이 문서) 기획팀 사용 매뉴얼
 ├── planning-kit-사용설명서.html   ← 실무자용 빠른 사용설명서(브라우저)
+├── planning-kit-온보딩.html       ← 비개발자 설치 가이드(OS별·처음 한 번)
 ├── CLAUDE.md                     ← AI 행동 거버넌스 + 작업 지도
 ├── inputs/<slug>/                ← [당신이 넣는 곳] S0 원본 맥락 — 🔒 로컬 전용(.gitignore)
 ├── docs/
-│   ├── onboarding.html                 ← 비개발자 설치 가이드(OS별)
 │   ├── planning-harness-guideline.md   ← 방법론 SSoT (S0~S12 본문)
 │   ├── planning-kit-blueprint.md       ← 킷 설계도
 │   ├── examples/quote-automation/      ← 동봉 완주 예시(결과물 모양 참고)

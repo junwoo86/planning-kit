@@ -164,7 +164,7 @@
 ## 8. 온보딩 HTML — 비개발자 진입 (감사 #3, 테마: 플랫폼 중립·온보딩)
 > 비개발자용 사전 인프라(VSCode/Cursor·Claude Code·필요시 npm·Python·Notion MCP·Playwright) 통합 온보딩 부재. 의사결정/안내=HTML 규칙.
 
-- [x] **8.1 온보딩 HTML 존재** ✅ 2026-06-18 (G8): `docs/onboarding.html` 신설 — Windows/macOS **탭 분리**(JS 토글) + 양 OS 섹션.
+- [x] **8.1 온보딩 HTML 존재** ✅ 2026-06-18 (G8): `planning-kit-온보딩.html(루트)` 신설 — Windows/macOS **탭 분리**(JS 토글) + 양 OS 섹션.
   - 검증 PASS: 파일 존재 + win·mac 패널 둘 다.
 - [x] **8.2 설치 스텝 완비** ✅ 2026-06-18 (G8): 양 OS 6스텝(에디터→Claude Code→sh(Git Bash/내장)→Python→(선택)Node+Playwright→(선택)Notion `/mcp`) + "한눈에" 표.
   - 검증 PASS: 6개 항목이 양 OS 섹션·표에 등장.
@@ -188,7 +188,7 @@
 | T4 | 미해결 누적 임계값 | 심각도(토대1+) / 절대개수 / 전부조건부 | 토대 3축 1건+ = 하류 blocked·미완 + 보조 강등룰 | CLAUDE.planning-lite·completion-gate cond3/4·coherence-check | 5,1,6,4 |
 | T5 | 독립검토 트리거 T1/T2 | tier단일정의+4축 / 전PRD의무 / 신호집계 | T2=경계/비가역/blocking/미검증가정 1+, veto 필수 | guideline(또는 rules) 단일정의·coherence-auditor·prd-compose·completion-gate | 5,1,4,6 |
 | T6 | 비대화형 원샷 기본분기 | 보수적정지(G1/G2 No) / G1 Yes / 시작거부 | 원샷=G1 No(보고서종료)·G2 No(Figma), 미수신 `[물어봄]` | orchestrator §2·report-compose·prd-compose | 1,5,6 |
-| T7 | 플랫폼 중립·온보딩 | 런처래퍼+온보딩HTML / 한줄폴백 / Python비의존 | OS중립 런처 + 비개발자 온보딩 HTML (§7·§8) | 루트 plan-gate.cmd/.sh·전 도구 호출·docs/onboarding.html | 3,2,1,6 |
+| T7 | 플랫폼 중립·온보딩 | 런처래퍼+온보딩HTML / 한줄폴백 / Python비의존 | OS중립 런처 + 비개발자 온보딩 HTML (§7·§8) | 루트 plan-gate.cmd/.sh·전 도구 호출·planning-kit-온보딩.html(루트) | 3,2,1,6 |
 | T8 | 산출 템플릿 신설 | 전용템플릿3 / 인라인 / 자유형식 | intake·problem-set·success 템플릿 신설(파싱키 일치) | templates/·completion-gate 파싱키 | 6,4,1 |
 | T9 | 규칙 레이어 SSoT | guideline격상+도구데이터 / rules4종작성 / 현상유지 | guideline 절 잠정SSoT + 금지어=도구데이터, blueprint 정정 | blueprint§1.1·guideline절·vague-term-lint 데이터 | 5,1,6,4 |
 | T10 | 채택검증 측정불가 | 정성체크리스트+조정 / 전부N/A / 외부설정화 | 정성 라벨 분리 + readiness:PASS는 실측만 + 임계조정 근거기록 | adoptability-check·templates(readiness)·completion-gate cond5 | 5,6,1 |
@@ -213,7 +213,7 @@
 | G5 템플릿·규칙·등급 | §5 | 5.1~5.4 전부 `[x]` | ✅ **충족**(2026-06-18) — 토대 템플릿 3종·readiness 템플릿·rules SSoT 정정·NO-GO 루브릭 |
 | G6 사용자 관점 | §6 | 6.1~6.4 전부 `[x]` | ✅ **충족**(2026-06-18) — quote-automation 완주 샘플(report gate exit2)·매핑표 3파일·Notion 인증 안내·죽은참조 정정 |
 | G7 크로스플랫폼 | §7 | 7.1~7.5 전부 `[x]` + 양 OS 종료코드 일치 | ✅ **충족**(2026-06-18) — 7.1~7.5 `[x]`, 런처·종료코드·경로분리자 Win+Git Bash 실측. (macOS 물리 실측만 미수행, 코드 OS중립) |
-| G8 온보딩 | §8 | 8.1~8.4 전부 `[x]` + 동작확인 명령 실측 PASS | ✅ **충족**(2026-06-18) — onboarding.html(OS탭·6스텝·동작확인 exit2 실측·Notion 실패=[확인불가]) |
+| G8 온보딩 | §8 | 8.1~8.4 전부 `[x]` + 동작확인 명령 실측 PASS | ✅ **충족**(2026-06-18) — planning-kit-온보딩.html(루트·OS탭·6스텝·동작확인 exit2 실측·Notion 실패=[확인불가]) |
 
 **판정 규칙(킷의 completion-gate 사상 차용)**:
 - 8개 게이트 전부 PASS → **'킷 구축 완성'**.
