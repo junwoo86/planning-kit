@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>planning-kit 온보딩 — 비개발자 설치 가이드</title>
+<style>
+  :root { --ink:#1d1d1f; --mut:#6b6b70; --line:#d9d9de; --bg:#fbfbfd; --accent:#0b66c3; --ok:#1a7f37; --warn:#b35900; }
+  * { box-sizing:border-box; }
+  body { font-family:-apple-system,'Segoe UI',Roboto,sans-serif; color:var(--ink); background:var(--bg); margin:0; line-height:1.6; }
+  header { padding:28px 20px; border-bottom:1px solid var(--line); background:#fff; }
+  header h1 { margin:0 0 6px; font-size:22px; }
+  header p { margin:0; color:var(--mut); font-size:14px; }
+  main { max-width:860px; margin:0 auto; padding:20px; }
+  .tabs { display:flex; gap:8px; margin:20px 0 16px; }
+  .tab { padding:8px 18px; border:1px solid var(--line); border-radius:8px; background:#fff; cursor:pointer; font-size:14px; font-weight:600; }
+  .tab.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+  .panel { display:none; }
+  .panel.active { display:block; }
+  ol { padding-left:22px; }
+  li { margin:10px 0; }
+  code, pre { font-family:'SFMono-Regular',Consolas,monospace; font-size:13px; }
+  code { background:#eef0f3; padding:1px 6px; border-radius:4px; }
+  pre { background:#1d1d22; color:#f2f2f4; padding:12px 14px; border-radius:8px; overflow-x:auto; }
+  .note { border-left:3px solid var(--accent); background:#f0f6fc; padding:10px 14px; border-radius:0 6px 6px 0; margin:14px 0; font-size:14px; }
+  .warn { border-left:3px solid var(--warn); background:#fff6ec; }
+  .ok { border-left:3px solid var(--ok); background:#eef8f0; }
+  h2 { font-size:18px; margin-top:28px; border-bottom:1px solid var(--line); padding-bottom:6px; }
+  h3 { font-size:15px; margin-top:18px; }
+  table { border-collapse:collapse; width:100%; font-size:13px; margin:10px 0; }
+  th,td { border:1px solid var(--line); padding:6px 10px; text-align:left; }
+  th { background:#f2f2f5; }
+</style>
+</head>
+<body>
+<header>
+  <h1>planning-kit 설치 온보딩</h1>
+  <p>개발 경험이 없어도 따라 할 수 있게 만든 설치 안내입니다. 본인 OS 탭을 고르세요.</p>
+</header>
+<main>
+
+  <div class="tabs">
+    <button class="tab active" data-os="win" onclick="pick('win')">🪟 Windows</button>
+    <button class="tab" data-os="mac" onclick="pick('mac')">🍎 macOS</button>
+  </div>
+
+  <!-- ===================== Windows ===================== -->
+  <section class="panel active" id="win">
+    <h2>Windows 설치 (6단계)</h2>
+    <ol>
+      <li><b>① 에디터 설치</b> — <a href="https://code.visualstudio.com/">VS Code</a> 또는 <a href="https://cursor.com/">Cursor</a> 중 하나를 설치합니다.</li>
+      <li><b>② Claude Code 설치</b> — 에디터의 확장(Extensions)에서 “Claude Code”를 설치하거나, <a href="https://www.anthropic.com/claude-code">claude.com/claude-code</a> 안내를 따릅니다.</li>
+      <li><b>③ Git for Windows 설치</b> — <a href="https://git-scm.com/download/win">git-scm.com</a>. (이 킷의 훅·도구는 <code>sh</code>로 실행돼 <b>Git Bash가 필요</b>합니다.)</li>
+      <li><b>④ Python 설치</b> — <a href="https://www.python.org/downloads/windows/">python.org</a> 설치 시 “Add python.exe to PATH” 체크. 설치되면 <code>py</code> 또는 <code>python</code> 명령이 생깁니다. (런처가 <code>python3→python→py -3</code> 순서로 자동 탐지합니다.)</li>
+      <li><b>⑤ (목업 쓸 때만) Node/npm + Playwright</b> — <a href="https://nodejs.org/">nodejs.org</a> 설치 후, 목업 단계(S9)를 쓸 때 Playwright MCP를 연결합니다. 보통 기획팀은 Figma를 쓰므로 <b>선택</b>입니다.</li>
+      <li><b>⑥ Notion 연동(선택)</b> — Notion 링크 참조(<code>*.refs.md</code>)를 쓸 때만. 채팅에 <code>/mcp</code> → Notion 선택 → 브라우저 인증.</li>
+    </ol>
+    <h3>설치 성공 확인 (복사·붙여넣기)</h3>
+    <p>에디터에서 이 프로젝트 폴더를 연 뒤, 터미널(Git Bash)에서:</p>
+    <pre>sh .claude/hooks/launch.sh .claude/tools/completion-gate.py docs/examples/quote-automation --mode report</pre>
+    <div class="note ok"><b>예상 출력</b>: 마지막 줄에 <code>판정: 보고서 생성 가능 …</code> 이 나오고 종료코드가 <code>2</code>면 성공입니다(완주 샘플 <code>quote-automation</code> 기준). 한글이 깨지면 런처가 UTF-8을 고정하므로 보통 정상 표시됩니다.</div>
+  </section>
+
+  <!-- ===================== macOS ===================== -->
+  <section class="panel" id="mac">
+    <h2>macOS 설치 (6단계)</h2>
+    <ol>
+      <li><b>① 에디터 설치</b> — <a href="https://code.visualstudio.com/">VS Code</a> 또는 <a href="https://cursor.com/">Cursor</a> 중 하나를 설치합니다.</li>
+      <li><b>② Claude Code 설치</b> — 에디터 확장에서 “Claude Code” 설치 또는 <a href="https://www.anthropic.com/claude-code">claude.com/claude-code</a> 안내.</li>
+      <li><b>③ 터미널·sh</b> — macOS는 기본 <code>sh</code>/zsh가 있어 별도 설치 불필요. (Xcode Command Line Tools가 없으면 <code>xcode-select --install</code>.)</li>
+      <li><b>④ Python 설치</b> — <a href="https://www.python.org/downloads/macos/">python.org</a> 또는 Homebrew <code>brew install python</code>. <code>python3</code> 명령이 생깁니다. (런처가 자동 탐지.)</li>
+      <li><b>⑤ (목업 쓸 때만) Node/npm + Playwright</b> — <code>brew install node</code> 후 Playwright MCP 연결. 기본 경로는 Figma라 <b>선택</b>입니다.</li>
+      <li><b>⑥ Notion 연동(선택)</b> — 채팅에 <code>/mcp</code> → Notion 선택 → 브라우저 인증.</li>
+    </ol>
+    <h3>설치 성공 확인 (복사·붙여넣기)</h3>
+    <p>에디터에서 이 프로젝트 폴더를 연 뒤, 터미널에서:</p>
+    <pre>sh .claude/hooks/launch.sh .claude/tools/completion-gate.py docs/examples/quote-automation --mode report</pre>
+    <div class="note ok"><b>예상 출력</b>: 마지막 줄에 <code>판정: 보고서 생성 가능 …</code>, 종료코드 <code>2</code>면 성공입니다(완주 샘플 기준).</div>
+  </section>
+
+  <h2>설치 항목 한눈에 (양 OS 공통 순서)</h2>
+  <table>
+    <tr><th>#</th><th>항목</th><th>Windows</th><th>macOS</th><th>필수?</th></tr>
+    <tr><td>1</td><td>VS Code 또는 Cursor</td><td>설치</td><td>설치</td><td>필수</td></tr>
+    <tr><td>2</td><td>Claude Code</td><td>확장/CLI</td><td>확장/CLI</td><td>필수</td></tr>
+    <tr><td>3</td><td>sh 환경</td><td>Git for Windows(Git Bash)</td><td>기본 내장</td><td>필수</td></tr>
+    <tr><td>4</td><td>Python</td><td>py/python</td><td>python3</td><td>필수</td></tr>
+    <tr><td>5</td><td>Node/npm + Playwright</td><td>nodejs.org</td><td>brew install node</td><td>목업(S9) 시만</td></tr>
+    <tr><td>6</td><td>Notion <code>/mcp</code> 인증</td><td>채팅 /mcp</td><td>채팅 /mcp</td><td>Notion 참조 시만</td></tr>
+  </table>
+
+  <h2>Notion 인증 — 실패하면 조용히 넘어가지 않습니다</h2>
+  <div class="note warn">
+    <b>인증 실패 처리(조용한 폴백 금지)</b>: <code>/mcp</code> 인증이 안 됐거나 권한이 없으면, 킷은 해당 Notion 참조를 추측으로 메우지 않고
+    <b><code>[확인불가]</code></b>로 표시하고 진행 보고에 남깁니다. 즉, “못 읽었다”를 숨기지 않습니다.
+    <br>또한 <code>finalized/</code>가 가리키는 Notion 문서는 <b>읽기전용</b>(킷이 수정하지 않음)입니다.
+  </div>
+
+  <h2>다음 단계</h2>
+  <p>설치 확인이 끝나면 채팅에 <code>/strategy-plan</code> 을 입력해 기획을 시작하세요. 자세한 사용법은 루트 <a href="../README.md">README.md</a>.</p>
+
+</main>
+<script>
+  function pick(os){
+    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.os===os));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id===os));
+  }
+</script>
+</body>
+</html>

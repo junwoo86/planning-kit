@@ -1,0 +1,49 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:www.nngroup.com)",
+      "WebFetch(domain:www.gv.com)",
+      "WebFetch(domain:basecamp.com)",
+      "WebFetch(domain:www.uxpin.com)",
+      "WebFetch(domain:ixdf.org)",
+      "mcp__claude_ai_Notion__authenticate",
+      "mcp__claude_ai_Notion__complete_authentication",
+      "mcp__claude_ai_Notion__search",
+      "mcp__claude_ai_Notion__fetch",
+      "Edit(/.claude/skills/report-compose/**)",
+      "Edit(/.claude/skills/reference-coherence/**)",
+      "Edit(/.claude/skills/prd-compose/**)",
+      "Edit(/.claude/skills/coherence-matrix/**)",
+      "Edit(/.claude/skills/mockup-elicit/**)"
+    ],
+    "deny": [
+      "mcp__plugin_devkit_*"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|MultiEdit|NotebookEdit|Write|Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh .claude/hooks/launch.sh --guard .claude/hooks/local-readonly-guard.py"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__claude_ai_Notion__",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh .claude/hooks/launch.sh --guard .claude/hooks/notion-zone-guard.py"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "devkit@allosta-internal": false
+  }
+}

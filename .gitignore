@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Playwright MCP 세션 산출물(브라우저 로그·스냅샷) — 로컬 전용
+.playwright-mcp/
+
+# ── planning-kit: 레포 = 뼈대 + 동봉 예시(docs/examples/)만 ──
+# 사용자가 제공하는 컨텍스트(inputs/<slug>/)와 진행 산출물(docs/planning/<slug>/)은
+# 커밋하지 않는다 — 각자 로컬에서만 관리. (완성 모습 참고는 docs/examples/.)
+
+# 사용자 입력: README와 노션링크 예시(*.refs.md)만 추적, 실제 <slug>/ 폴더는 제외
+inputs/*
+!inputs/README.md
+!inputs/*.refs.md
+
+# 진행 산출물: 작업 디렉토리 안내(README)만 추적, 실제 산출은 로컬 전용
+docs/planning/*
+!docs/planning/README.md
+
+# 킷 로컬 상태(notion-finalized 매니페스트 등) — 로컬 전용
+.claude/state/
+
+# 참조 컨텍스트 맵: 스켈레톤(README·_예시-노션링크.refs.md)만 추적, 실제 도메인 참조파일은 로컬 전용
+docs/reference-context-map/finalized/*
+docs/reference-context-map/open/*
+!docs/reference-context-map/finalized/README.md
+!docs/reference-context-map/open/README.md
+!docs/reference-context-map/finalized/_*.refs.md
+!docs/reference-context-map/open/_*.refs.md
+# (index.md·cross-domain-analysis.md는 ensure-refmap 연결 후 별도로 로컬전용 처리 — 그래야 fresh clone이 자동 스캐폴드됨)

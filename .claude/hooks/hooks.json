@@ -1,0 +1,36 @@
+{
+  "_comment": "PreToolUse 읽기전용 가드 2종은 settings.json에 연결(finalized 보호, exit 2). A1(공백버그) 수정 2026-06-18 — 스크립트 exit 2 동작은 검증됨(echo JSON | python3 …). 라이브 발화는 세션 재시작 후 finalized 수정 시도로 최종 확인(DoD 2.2). UserPromptSubmit·Stop은 DRAFT·미연결.",
+  "_note": "blueprint §1.6 — suggest-activation/completion-gate-reminder=opt-in·비강제. 이 파일은 *드래프트 미러*(CC 비로드) — 라이브 훅 SSoT는 settings.json. Cycle 1b(T7)에서 exec-form 런처로 전환 예정.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|MultiEdit|NotebookEdit|Write|Bash|PowerShell",
+        "hooks": [
+          { "type": "command", "command": "python3 .claude/hooks/local-readonly-guard.py" }
+        ]
+      },
+      {
+        "matcher": "mcp__claude_ai_Notion__",
+        "hooks": [
+          { "type": "command", "command": "python3 .claude/hooks/notion-zone-guard.py" }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "python3 .claude/hooks/suggest-activation.py" }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "python3 .claude/hooks/completion-gate-reminder.py" }
+        ]
+      }
+    ]
+  }
+}
