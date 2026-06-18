@@ -1,110 +1,321 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>planning-kit 온보딩 — 비개발자 설치 가이드</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>planning-kit 설치 온보딩 — 개발 안 해도 30분이면 끝</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" as="style" crossorigin
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 <style>
-  :root { --ink:#1d1d1f; --mut:#6b6b70; --line:#d9d9de; --bg:#fbfbfd; --accent:#0b66c3; --ok:#1a7f37; --warn:#b35900; }
-  * { box-sizing:border-box; }
-  body { font-family:-apple-system,'Segoe UI',Roboto,sans-serif; color:var(--ink); background:var(--bg); margin:0; line-height:1.6; }
-  header { padding:28px 20px; border-bottom:1px solid var(--line); background:#fff; }
-  header h1 { margin:0 0 6px; font-size:22px; }
-  header p { margin:0; color:var(--mut); font-size:14px; }
-  main { max-width:860px; margin:0 auto; padding:20px; }
-  .tabs { display:flex; gap:8px; margin:20px 0 16px; }
-  .tab { padding:8px 18px; border:1px solid var(--line); border-radius:8px; background:#fff; cursor:pointer; font-size:14px; font-weight:600; }
-  .tab.active { background:var(--accent); color:#fff; border-color:var(--accent); }
-  .panel { display:none; }
-  .panel.active { display:block; }
-  ol { padding-left:22px; }
-  li { margin:10px 0; }
-  code, pre { font-family:'SFMono-Regular',Consolas,monospace; font-size:13px; }
-  code { background:#eef0f3; padding:1px 6px; border-radius:4px; }
-  pre { background:#1d1d22; color:#f2f2f4; padding:12px 14px; border-radius:8px; overflow-x:auto; }
-  .note { border-left:3px solid var(--accent); background:#f0f6fc; padding:10px 14px; border-radius:0 6px 6px 0; margin:14px 0; font-size:14px; }
-  .warn { border-left:3px solid var(--warn); background:#fff6ec; }
-  .ok { border-left:3px solid var(--ok); background:#eef8f0; }
-  h2 { font-size:18px; margin-top:28px; border-bottom:1px solid var(--line); padding-bottom:6px; }
-  h3 { font-size:15px; margin-top:18px; }
-  table { border-collapse:collapse; width:100%; font-size:13px; margin:10px 0; }
-  th,td { border:1px solid var(--line); padding:6px 10px; text-align:left; }
-  th { background:#f2f2f5; }
+  :root{
+    --bg:#f6f7f9; --card:#ffffff; --ink:#1f2430; --muted:#5b6472; --line:#e6e9ee;
+    --brand:#4338ca; --brand-soft:#eef0fb; --brand-ink:#3730a3;
+    --ok:#0e9f6e; --ok-soft:#e7f6ef; --warn:#b45309; --warn-soft:#fdf3e3;
+    --win:#0b66c3; --win-soft:#eaf1fe; --mac:#444; --mac-soft:#eef0f3;
+    --radius:14px; --shadow:0 1px 2px rgba(20,25,40,.04), 0 8px 24px rgba(20,25,40,.06);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI','Malgun Gothic',sans-serif;
+    line-height:1.7; -webkit-font-smoothing:antialiased; letter-spacing:-.01em;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 20px}
+  a{color:var(--brand); text-decoration:none} a:hover{text-decoration:underline}
+  code,.mono{font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace; font-size:.9em}
+  code{background:#eef0f3; padding:.12em .42em; border-radius:6px; color:#27324a}
+
+  header.bar{position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(8px);
+    background:rgba(246,247,249,.85); border-bottom:1px solid var(--line);}
+  .bar .wrap{display:flex; align-items:center; gap:14px; height:58px}
+  .logo{font-weight:800; letter-spacing:-.02em; color:var(--ink); white-space:nowrap}
+  .logo b{color:var(--brand)}
+  nav.pills{display:flex; gap:6px; overflow-x:auto; margin-left:auto; scrollbar-width:none}
+  nav.pills::-webkit-scrollbar{display:none}
+  nav.pills a{font-size:13.5px; color:var(--muted); padding:6px 11px; border-radius:999px; white-space:nowrap}
+  nav.pills a:hover{background:#eceef2; text-decoration:none; color:var(--ink)}
+  nav.pills a.active{background:var(--brand-soft); color:var(--brand-ink); font-weight:600}
+  nav.pills a.cta{background:var(--ok-soft); color:var(--ok); font-weight:700}
+
+  .hero{padding:52px 0 28px}
+  .eyebrow{display:inline-block; font-size:13px; font-weight:700; color:var(--brand-ink);
+    background:var(--brand-soft); padding:5px 12px; border-radius:999px; margin-bottom:16px}
+  h1{font-size:33px; line-height:1.25; margin:0 0 12px; letter-spacing:-.03em}
+  .lede{font-size:18px; color:#39414f; margin:0; max-width:680px}
+
+  section{padding:32px 0; border-top:1px solid var(--line)}
+  section.flat{border-top:none}
+  h2{font-size:22px; letter-spacing:-.02em; margin:0 0 6px; display:flex; align-items:center; gap:9px}
+  h2 .n{display:inline-grid; place-items:center; width:27px; height:27px; border-radius:8px;
+    background:var(--brand); color:#fff; font-size:14px; font-weight:700}
+  .sub{color:var(--muted); margin:0 0 18px; font-size:15px}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow)}
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:13px}
+  .grid3 .card .k{font-size:12.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--brand-ink); margin-bottom:7px}
+  .grid3 .card h3{margin:0 0 6px; font-size:15.5px} .grid3 .card p{margin:0; font-size:13.5px; color:#4a5363}
+
+  .callout{border-left:4px solid var(--brand); background:var(--brand-soft); padding:14px 18px; border-radius:0 12px 12px 0; font-size:14.5px}
+  .callout.good{border-color:var(--ok); background:var(--ok-soft)}
+  .callout.warn{border-color:var(--warn); background:var(--warn-soft)}
+
+  .tabs{display:flex; gap:8px; margin:4px 0 18px}
+  .tab{padding:9px 20px; border:1px solid var(--line); border-radius:10px; background:#fff; cursor:pointer;
+    font-size:14.5px; font-weight:700; color:var(--muted); display:flex; align-items:center; gap:7px}
+  .tab.active{background:var(--brand); color:#fff; border-color:var(--brand)}
+  .panel{display:none} .panel.active{display:block}
+
+  .steps{counter-reset:s; display:grid; gap:11px}
+  .steps .st{display:flex; gap:14px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:15px 18px; box-shadow:var(--shadow)}
+  .steps .st .num{counter-increment:s; flex:none; width:30px; height:30px; border-radius:50%;
+    background:var(--brand); color:#fff; display:grid; place-items:center; font-weight:700; font-size:15px}
+  .steps .st .num::before{content:counter(s)}
+  .steps .st .tx{font-size:14.5px} .steps .st .tx b{font-size:15px}
+  .steps .st .tx .hint{color:var(--muted); font-size:13px; margin-top:4px}
+  .opt{display:inline-block; font-size:11.5px; font-weight:700; color:var(--muted); background:#eef0f3; border-radius:6px; padding:1px 7px; margin-left:5px}
+
+  pre{background:#0f1730; color:#dfe6f5; border-radius:var(--radius); padding:16px 18px; overflow-x:auto;
+    font-size:13px; line-height:1.7; margin:10px 0 0; box-shadow:var(--shadow); font-family:'SFMono-Regular',Consolas,monospace}
+  table{width:100%; border-collapse:collapse; font-size:13.5px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; margin-top:6px}
+  th,td{text-align:left; padding:10px 13px; border-bottom:1px solid var(--line); vertical-align:top}
+  th{background:#f3f4f7; font-size:12.5px; color:#465} tr:last-child td{border-bottom:none}
+  .req{color:var(--brand-ink); font-weight:700} .optc{color:var(--muted)}
+
+  .next{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px}
+  .next a.big{display:block; background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:20px 22px; box-shadow:var(--shadow); text-decoration:none; color:var(--ink)}
+  .next a.big:hover{border-color:#cfd6ea; text-decoration:none}
+  .next a.big.primary{background:var(--brand); color:#fff; border-color:var(--brand)}
+  .next a.big .t{font-size:16px; font-weight:700; margin-bottom:5px}
+  .next a.big .d{font-size:13.5px; color:#4a5363} .next a.big.primary .d{color:#dfe2fb}
+
+  footer{padding:38px 0 56px; color:var(--muted); font-size:13.5px; border-top:1px solid var(--line); margin-top:8px}
+  footer a{font-weight:600}
+  @media (max-width:760px){ .grid3,.next{grid-template-columns:1fr} h1{font-size:26px} .lede{font-size:16px} nav.pills{display:none} }
 </style>
 </head>
 <body>
-<header>
-  <h1>planning-kit 설치 온보딩</h1>
-  <p>개발 경험이 없어도 따라 할 수 있게 만든 설치 안내입니다. 본인 OS 탭을 고르세요.</p>
+
+<header class="bar">
+  <div class="wrap">
+    <div class="logo"><b>planning</b>-kit · 설치</div>
+    <nav class="pills">
+      <a href="#overview">개요</a>
+      <a href="#prep">준비물</a>
+      <a href="#install">설치 단계</a>
+      <a href="#verify">설치 확인</a>
+      <a href="#notion">Notion(선택)</a>
+      <a href="#next" class="cta">→ 사용설명서</a>
+    </nav>
+  </div>
 </header>
-<main>
 
-  <div class="tabs">
-    <button class="tab active" data-os="win" onclick="pick('win')">🪟 Windows</button>
-    <button class="tab" data-os="mac" onclick="pick('mac')">🍎 macOS</button>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero" id="overview">
+    <span class="eyebrow">처음 한 번만 · 비개발자용 설치 가이드</span>
+    <h1>개발을 몰라도 괜찮아요.<br/>천천히 따라오시면 됩니다.</h1>
+    <p class="lede">
+      planning-kit을 쓰려면 <b>딱 한 번</b> 컴퓨터에 몇 가지를 깔면 됩니다. 아래를 <b>순서대로 클릭만</b> 하면
+      대략 <b>20~30분</b>이면 끝나요. 다 깔고 나면 다음부턴 채팅에 한 줄만 입력하면 됩니다.
+    </p>
   </div>
 
-  <!-- ===================== Windows ===================== -->
-  <section class="panel active" id="win">
-    <h2>Windows 설치 (6단계)</h2>
-    <ol>
-      <li><b>① 에디터 설치</b> — <a href="https://code.visualstudio.com/">VS Code</a> 또는 <a href="https://cursor.com/">Cursor</a> 중 하나를 설치합니다.</li>
-      <li><b>② Claude Code 설치</b> — 에디터의 확장(Extensions)에서 “Claude Code”를 설치하거나, <a href="https://www.anthropic.com/claude-code">claude.com/claude-code</a> 안내를 따릅니다.</li>
-      <li><b>③ Git for Windows 설치</b> — <a href="https://git-scm.com/download/win">git-scm.com</a>. (이 킷의 훅·도구는 <code>sh</code>로 실행돼 <b>Git Bash가 필요</b>합니다.)</li>
-      <li><b>④ Python 설치</b> — <a href="https://www.python.org/downloads/windows/">python.org</a> 설치 시 “Add python.exe to PATH” 체크. 설치되면 <code>py</code> 또는 <code>python</code> 명령이 생깁니다. (런처가 <code>python3→python→py -3</code> 순서로 자동 탐지합니다.)</li>
-      <li><b>⑤ (목업 쓸 때만) Node/npm + Playwright</b> — <a href="https://nodejs.org/">nodejs.org</a> 설치 후, 목업 단계(S9)를 쓸 때 Playwright MCP를 연결합니다. 보통 기획팀은 Figma를 쓰므로 <b>선택</b>입니다.</li>
-      <li><b>⑥ Notion 연동(선택)</b> — Notion 링크 참조(<code>*.refs.md</code>)를 쓸 때만. 채팅에 <code>/mcp</code> → Notion 선택 → 브라우저 인증.</li>
-    </ol>
-    <h3>설치 성공 확인 (복사·붙여넣기)</h3>
-    <p>에디터에서 이 프로젝트 폴더를 연 뒤, 터미널(Git Bash)에서:</p>
-    <pre>sh .claude/hooks/launch.sh .claude/tools/completion-gate.py docs/examples/quote-automation --mode report</pre>
-    <div class="note ok"><b>예상 출력</b>: 마지막 줄에 <code>판정: 보고서 생성 가능 …</code> 이 나오고 종료코드가 <code>2</code>면 성공입니다(완주 샘플 <code>quote-automation</code> 기준). 한글이 깨지면 런처가 UTF-8을 고정하므로 보통 정상 표시됩니다.</div>
+  <section class="flat">
+    <div class="callout good" style="margin-bottom:18px">
+      🧭 <b>이 페이지는 '환경 설치'만 다룹니다.</b> 설치가 끝나면 — <b>실제 사용법</b>(자료를 어디 넣고, 어떻게 시작하고, 결과를 어떻게 읽는지)은
+      <a href="../planning-kit-사용설명서.html"><b>사용설명서</b></a>에 친절하게 정리돼 있어요. 두 문서는 짝입니다 — <b>설치(여기) → 사용(사용설명서)</b>.
+    </div>
+    <div class="grid3">
+      <div class="card">
+        <div class="k">무엇을 까나요</div>
+        <h3>에디터 + Claude Code</h3>
+        <p>코드 에디터(VS Code/Cursor) 안에서 <b>Claude Code</b>(AI 비서)가 돌아갑니다. 여기에 킷 폴더를 열어 채팅으로 일합니다.</p>
+      </div>
+      <div class="card">
+        <div class="k">왜 필요한가요</div>
+        <h3>킷이 도구를 직접 돌립니다</h3>
+        <p>킷은 점검·게이트 같은 <b>작은 프로그램</b>을 자동 실행해요. 그래서 <b>Python</b>과 (Windows는) <b>Git Bash</b>가 필요합니다.</p>
+      </div>
+      <div class="card">
+        <div class="k">얼마나 걸리나요</div>
+        <h3>20~30분, 한 번만</h3>
+        <p>설치는 처음 한 번뿐. 막히면 <b>각 줄의 링크</b>를 누르면 공식 다운로드로 갑니다. 선택 항목(Notion·목업)은 나중에 해도 됩니다.</p>
+      </div>
+    </div>
   </section>
 
-  <!-- ===================== macOS ===================== -->
-  <section class="panel" id="mac">
-    <h2>macOS 설치 (6단계)</h2>
-    <ol>
-      <li><b>① 에디터 설치</b> — <a href="https://code.visualstudio.com/">VS Code</a> 또는 <a href="https://cursor.com/">Cursor</a> 중 하나를 설치합니다.</li>
-      <li><b>② Claude Code 설치</b> — 에디터 확장에서 “Claude Code” 설치 또는 <a href="https://www.anthropic.com/claude-code">claude.com/claude-code</a> 안내.</li>
-      <li><b>③ 터미널·sh</b> — macOS는 기본 <code>sh</code>/zsh가 있어 별도 설치 불필요. (Xcode Command Line Tools가 없으면 <code>xcode-select --install</code>.)</li>
-      <li><b>④ Python 설치</b> — <a href="https://www.python.org/downloads/macos/">python.org</a> 또는 Homebrew <code>brew install python</code>. <code>python3</code> 명령이 생깁니다. (런처가 자동 탐지.)</li>
-      <li><b>⑤ (목업 쓸 때만) Node/npm + Playwright</b> — <code>brew install node</code> 후 Playwright MCP 연결. 기본 경로는 Figma라 <b>선택</b>입니다.</li>
-      <li><b>⑥ Notion 연동(선택)</b> — 채팅에 <code>/mcp</code> → Notion 선택 → 브라우저 인증.</li>
-    </ol>
-    <h3>설치 성공 확인 (복사·붙여넣기)</h3>
-    <p>에디터에서 이 프로젝트 폴더를 연 뒤, 터미널에서:</p>
-    <pre>sh .claude/hooks/launch.sh .claude/tools/completion-gate.py docs/examples/quote-automation --mode report</pre>
-    <div class="note ok"><b>예상 출력</b>: 마지막 줄에 <code>판정: 보고서 생성 가능 …</code>, 종료코드 <code>2</code>면 성공입니다(완주 샘플 기준).</div>
+  <!-- PREP TABLE -->
+  <section id="prep">
+    <h2><span class="n">1</span>준비물 한눈에</h2>
+    <p class="sub">아래가 다입니다. <b>필수 5개</b> + 필요할 때만 하는 <b>선택 2개</b>. (자세한 클릭 순서는 §2에서 OS별로.)</p>
+    <table>
+      <tr><th style="width:34px">#</th><th>항목</th><th>Windows</th><th>macOS</th><th style="width:78px">필수?</th></tr>
+      <tr><td>1</td><td>코드 에디터</td><td>VS Code 또는 Cursor</td><td>VS Code 또는 Cursor</td><td class="req">필수</td></tr>
+      <tr><td>2</td><td>Claude Code</td><td>에디터 확장에서 설치</td><td>에디터 확장에서 설치</td><td class="req">필수</td></tr>
+      <tr><td>3</td><td>터미널(sh)</td><td>Git for Windows(=Git Bash)</td><td>기본 내장</td><td class="req">필수</td></tr>
+      <tr><td>4</td><td>Python</td><td>python.org (PATH 체크)</td><td>python.org / Homebrew</td><td class="req">필수</td></tr>
+      <tr><td>5</td><td>킷 받기</td><td colspan="2">GitHub에서 ZIP 다운로드 <b>또는</b> <code>git clone</code></td><td class="req">필수</td></tr>
+      <tr><td>6</td><td>Notion 연동</td><td colspan="2">채팅에서 <code>/mcp</code> → 로그인</td><td class="optc">선택</td></tr>
+      <tr><td>7</td><td>Node + Playwright</td><td>nodejs.org</td><td><code>brew install node</code></td><td class="optc">선택(목업)</td></tr>
+    </table>
+    <div class="callout" style="margin-top:14px">
+      💡 <b>선택 2개는 건너뛰어도 시작됩니다.</b> Notion 링크 참조를 쓸 때만 ⑥, 화면 목업을 킷으로 만들 때만 ⑦이 필요해요(보통 목업은 기획팀이 Figma로 따로 합니다).
+    </div>
   </section>
 
-  <h2>설치 항목 한눈에 (양 OS 공통 순서)</h2>
-  <table>
-    <tr><th>#</th><th>항목</th><th>Windows</th><th>macOS</th><th>필수?</th></tr>
-    <tr><td>1</td><td>VS Code 또는 Cursor</td><td>설치</td><td>설치</td><td>필수</td></tr>
-    <tr><td>2</td><td>Claude Code</td><td>확장/CLI</td><td>확장/CLI</td><td>필수</td></tr>
-    <tr><td>3</td><td>sh 환경</td><td>Git for Windows(Git Bash)</td><td>기본 내장</td><td>필수</td></tr>
-    <tr><td>4</td><td>Python</td><td>py/python</td><td>python3</td><td>필수</td></tr>
-    <tr><td>5</td><td>Node/npm + Playwright</td><td>nodejs.org</td><td>brew install node</td><td>목업(S9) 시만</td></tr>
-    <tr><td>6</td><td>Notion <code>/mcp</code> 인증</td><td>채팅 /mcp</td><td>채팅 /mcp</td><td>Notion 참조 시만</td></tr>
-  </table>
+  <!-- INSTALL STEPS (OS TABS) -->
+  <section id="install">
+    <h2><span class="n">2</span>단계별 설치 — 클릭만 따라오세요</h2>
+    <p class="sub">본인 운영체제 탭을 고르세요. 각 단계의 <b>파란 링크</b>를 누르면 공식 다운로드 페이지로 갑니다.</p>
+    <div class="tabs">
+      <button class="tab active" data-os="win" onclick="pick('win')">🪟 Windows</button>
+      <button class="tab" data-os="mac" onclick="pick('mac')">🍎 macOS</button>
+    </div>
 
-  <h2>Notion 인증 — 실패하면 조용히 넘어가지 않습니다</h2>
-  <div class="note warn">
-    <b>인증 실패 처리(조용한 폴백 금지)</b>: <code>/mcp</code> 인증이 안 됐거나 권한이 없으면, 킷은 해당 Notion 참조를 추측으로 메우지 않고
-    <b><code>[확인불가]</code></b>로 표시하고 진행 보고에 남깁니다. 즉, “못 읽었다”를 숨기지 않습니다.
-    <br>또한 <code>finalized/</code>가 가리키는 Notion 문서는 <b>읽기전용</b>(킷이 수정하지 않음)입니다.
-  </div>
+    <!-- Windows -->
+    <div class="panel active" id="win">
+      <div class="steps">
+        <div class="st"><div class="num"></div><div class="tx">
+          <b>코드 에디터를 설치합니다</b> — <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VS Code</a>(추천) 또는 <a href="https://cursor.com/" target="_blank" rel="noopener">Cursor</a> 중 하나.
+          <div class="hint">다운로드 → 실행 → 기본값으로 설치. 설치 후 한 번 열어 두세요.</div>
+        </div></div>
+        <div class="st"><div class="num"></div><div class="tx">
+          <b>Claude Code를 연결합니다</b> — 에디터 왼쪽 <b>확장(Extensions)</b> 아이콘 → “<b>Claude Code</b>” 검색 → 설치. (안내: <a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener">claude.com/claude-code</a>)
+          <div class="hint">설치 후 안내대로 <b>로그인</b>까지 마치면 에디터 안에 채팅창이 생깁니다 — 여기서 킷과 대화합니다.</div>
+        </div></div>
+        <div class="st"><div class="num"></div><div class="tx">
+          <b>Git for Windows를 설치합니다</b> — <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">git-scm.com/download/win</a>.
+          <div class="hint">‘다음 → 다음’ 기본값으로 설치하면 됩니다. (킷의 점검 도구가 <b>Git Bash</b>로 돌아가고, 킷을 내려받을 때도 씁니다.)</div>
+        </div></div>
+        <div class="st"><div class="num"></div><div class="tx">
+          <b>Python을 설치합니다</b> — <a href="https://www.python.org/downloads/windows/" target="_blank" rel="noopener">python.org</a>에서 내려받아 실행.
+          <div class="hint">⚠️ 설치 <b>첫 화면 맨 아래 “Add python.exe to PATH” 체크박스를 꼭 켜고</b> 설치하세요. (킷이 <code>py</code>/<code>python</code>을 자동으로 찾습니다.)</div>
+        </div></div>
+        <div class="st"><div class="num"></div><div class="tx">
+          <b>킷을 내려받습니다</b> — 둘 중 편한 방법으로:
+          <div class="hint"><b>쉬운 길</b>: <a href="https://github.com/junwoo86/planning-kit" target="_blank" rel="noopener">github.com/junwoo86/planning-kit</a> → 초록 <b>Code</b> 버튼 → <b>Download ZIP</b> → 압축 풀기.
+          <br/><b>또는</b> Git Bash에서: <code>git clone https://github.com/junwoo86/planning-kit.git</code>
+          <br/>→ 받은 <code>planning-kit</code> 폴더를 에디터에서 <b>‘폴더 열기(Open Folder)’</b>로 엽니다.</div>
+        </div></div>
+        <div class="st"><div class="num"></div><div class="tx">
+          <b>(선택) Notion·목업</b> <span class="opt">나중에 해도 됨</span> — Notion 링크 참조는 채팅에 <code>/mcp</code>(아래 §4). 화면 목업까지 킷으로 만들 땐 <a href="https://nodejs.org/" target="_blank" rel="noopener">Node</a> + Playwright.
+        </div></div>
+      </div>
+    </div>
 
-  <h2>다음 단계</h2>
-  <p>설치 확인이 끝나면 채팅에 <code>/strategy-plan</code> 을 입력해 기획을 시작하세요. 자세한 사용법은 루트 <a href="../README.md">README.md</a>.</p>
+    <!-- macOS -->
+    <div class="panel" id="mac">
+      <div class="steps">
+        <div class="st"><div class="num"></div><div class="tx">
+          <b>코드 에디터를 설치합니다</b> — <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VS Code</a>(추천) 또는 <a href="https://cursor.com/" target="_blank" rel="noopener">Cursor</a> 중 하나.
+          <div class="hint">다운로드 → 응용 프로그램으로 이동 → 실행.</div>
+        </div></div>
+        <div class="st"><div class="num"></div><div class="tx">
+          <b>Claude Code를 연결합니다</b> — 에디터 <b>확장(Extensions)</b>에서 “<b>Claude Code</b>” 검색·설치. (안내: <a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener">claude.com/claude-code</a>)
+          <div class="hint">로그인까지 마치면 에디터 안에 채팅창이 생깁니다.</div>
+        </div></div>
+        <div class="st"><div class="num"></div><div class="tx">
+          <b>터미널은 기본 내장입니다</b> — macOS엔 <code>sh</code>/zsh가 기본이라 따로 안 깔아도 됩니다.
+          <div class="hint">혹시 <code>git</code>이 없다고 나오면 한 번만: 터미널에 <code>xcode-select --install</code>.</div>
+        </div></div>
+        <div class="st"><div class="num"></div><div class="tx">
+          <b>Python을 설치합니다</b> — <a href="https://www.python.org/downloads/macos/" target="_blank" rel="noopener">python.org</a>에서 내려받거나, Homebrew가 있으면 <code>brew install python</code>.
+          <div class="hint"><code>python3</code> 명령이 생깁니다. (킷이 자동으로 찾습니다.)</div>
+        </div></div>
+        <div class="st"><div class="num"></div><div class="tx">
+          <b>킷을 내려받습니다</b> — 둘 중 편한 방법으로:
+          <div class="hint"><b>쉬운 길</b>: <a href="https://github.com/junwoo86/planning-kit" target="_blank" rel="noopener">github.com/junwoo86/planning-kit</a> → 초록 <b>Code</b> 버튼 → <b>Download ZIP</b> → 압축 풀기.
+          <br/><b>또는</b> 터미널에서: <code>git clone https://github.com/junwoo86/planning-kit.git</code>
+          <br/>→ 받은 <code>planning-kit</code> 폴더를 에디터에서 <b>‘폴더 열기(Open Folder)’</b>로 엽니다.</div>
+        </div></div>
+        <div class="st"><div class="num"></div><div class="tx">
+          <b>(선택) Notion·목업</b> <span class="opt">나중에 해도 됨</span> — Notion 링크 참조는 채팅에 <code>/mcp</code>(아래 §4). 화면 목업까지 킷으로 만들 땐 <code>brew install node</code> + Playwright.
+        </div></div>
+      </div>
+    </div>
+  </section>
 
-</main>
+  <!-- VERIFY -->
+  <section id="verify">
+    <h2><span class="n">3</span>설치가 잘 됐는지 1줄로 확인</h2>
+    <p class="sub">에디터에서 <b>planning-kit 폴더를 연 상태</b>에서, 터미널(Windows는 Git Bash)에 아래 한 줄을 <b>복사·붙여넣기</b> 하세요.</p>
+    <pre>sh .claude/hooks/launch.sh .claude/tools/completion-gate.py docs/examples/quote-automation --mode report</pre>
+    <div class="callout good" style="margin-top:14px">
+      ✅ <b>이렇게 나오면 성공</b> — 마지막 줄에 <code>판정: 보고서 생성 가능 …</code> 이 보이면 됩니다(동봉된 예시 <code>quote-automation</code>으로 점검 도구가 정상 작동한 것).
+      한글이 깨져 보여도 걱정 마세요 — 실제 동작엔 문제 없습니다.
+    </div>
+    <div class="callout warn" style="margin-top:11px">
+      ⚠️ <b>잘 안 되면</b> — 가장 흔한 원인은 ⑴ 에디터에서 <b>planning-kit 폴더를 안 연 상태</b>(다른 폴더에서 실행), ⑵ Python 미설치/‘PATH 체크’ 누락,
+      ⑶ Windows에서 일반 명령창(cmd)이 아니라 <b>Git Bash</b>로 실행해야 함. 그래도 막히면, 채팅에 “설치 확인이 안 돼”라고 하면 킷이 무엇이 빠졌는지 같이 짚어 줍니다.
+    </div>
+  </section>
+
+  <!-- NOTION -->
+  <section id="notion">
+    <h2><span class="n">4</span>Notion 연동 <span class="opt" style="font-size:13px">선택</span></h2>
+    <p class="sub">팀의 Notion 문서를 참고 자료로 연결할 때만 하면 됩니다. 안 써도 킷은 정상 작동해요.</p>
+    <div class="steps">
+      <div class="st"><div class="num"></div><div class="tx">
+        <b>연결(한 번만)</b> — 에디터 채팅에 <code>/mcp</code> 입력 → 목록에서 <b>“claude.ai Notion”</b> 선택 → 브라우저에서 로그인.
+        <div class="hint">그 뒤로는 연결된 계정에 <b>공유된 페이지만</b> 읽어 참고합니다.</div>
+      </div></div>
+      <div class="st"><div class="num"></div><div class="tx">
+        <b>링크를 적습니다</b> — <code>.refs.md</code> 파일에 Notion URL을 한 줄에 하나씩. 자세한 방법·위치는 <a href="../planning-kit-사용설명서.html#notion">사용설명서 §4 Notion 참조</a>.
+      </div></div>
+    </div>
+    <div class="callout warn" style="margin-top:14px">
+      🔒 <b>안전 규칙</b> — 인증이 안 됐거나 권한이 없으면 킷은 내용을 <b>지어내지 않고</b> <code>[확인불가]</code>로 정직하게 남깁니다(조용히 넘어가지 않음).
+      또 <code>finalized/</code>로 연결한 Notion 문서는 <b>읽기 전용</b>(킷이 절대 수정하지 않음)입니다.
+    </div>
+  </section>
+
+  <!-- NEXT / CROSS-LINK -->
+  <section id="next">
+    <h2><span class="n">5</span>설치 끝! 이제 무엇을 하나요</h2>
+    <p class="sub">환경이 준비됐습니다. 다음은 <b>실제 사용</b>입니다 — 아래 사용설명서가 친절하게 안내해요.</p>
+    <div class="next">
+      <a class="big primary" href="../planning-kit-사용설명서.html">
+        <div class="t">📘 사용설명서 — 여기부터 보세요</div>
+        <div class="d">자료를 어디에 넣고, <code>/strategy-plan</code>으로 어떻게 시작하고, 결과물을 어떻게 읽는지. 3단계 빠른 시작 포함.</div>
+      </a>
+      <a class="big" href="examples/quote-automation/">
+        <div class="t">📂 완주 예시 먼저 구경</div>
+        <div class="d">끝까지 돌린 참고용 산출물(<code>docs/examples/quote-automation/</code>) — 결과물이 어떤 모양인지 미리 봅니다.</div>
+      </a>
+    </div>
+    <div class="callout" style="margin-top:14px">
+      🚀 <b>한 줄 요약</b>: 에디터에서 planning-kit 폴더를 열고, 채팅에 <code>/strategy-plan</code> 만 입력하면 시작됩니다. 자료가 하나도 없어도 됩니다.
+    </div>
+  </section>
+
+  <footer>
+    <p style="margin:0 0 6px">
+      이 문서는 <b>설치(환경 준비) 가이드</b>입니다. 설치 후 사용법 →
+      <a href="../planning-kit-사용설명서.html">사용설명서</a> · 전체 설명서 <a href="../README.md">README.md</a> ·
+      방법론 <a href="planning-harness-guideline.md">가이드라인</a>.
+    </p>
+    <p style="margin:0; color:#9aa3b2">막히는 부분은 에디터 채팅에 그대로 물어보세요 — 킷이 무엇이 빠졌는지 같이 짚어 줍니다.</p>
+  </footer>
+
+</div>
+
 <script>
   function pick(os){
-    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.os===os));
-    document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active', p.id===os));
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.toggle('active', t.dataset.os===os); });
+    document.querySelectorAll('.panel').forEach(function(p){ p.classList.toggle('active', p.id===os); });
   }
+  // 상단 네비 스크롤스파이(앵커 링크만)
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('nav.pills a')).filter(function(a){ return a.getAttribute('href').charAt(0)==='#'; });
+    var map = {}; links.forEach(function(a){ var el=document.getElementById(a.getAttribute('href').slice(1)); if(el) map[a.getAttribute('href').slice(1)]=a; });
+    var ids = Object.keys(map);
+    function onScroll(){ var pos=window.scrollY+120, cur=ids[0];
+      ids.forEach(function(id){ var el=document.getElementById(id); if(el && el.offsetTop<=pos) cur=id; });
+      links.forEach(function(a){ a.classList.remove('active'); }); if(map[cur]) map[cur].classList.add('active'); }
+    window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  })();
 </script>
 </body>
 </html>
