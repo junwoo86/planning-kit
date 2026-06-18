@@ -19,6 +19,8 @@
 
 ## 2. 빠른 시작 (3단계)
 
+> 🛠️ **처음 설치라면 먼저** → [docs/onboarding.html](docs/onboarding.html) (VSCode/Cursor · Claude Code · Python · Git Bash · Notion 연동 — OS별 비개발자 설치 가이드). 아래 3단계는 **환경이 준비된 상태** 기준입니다.
+
 1. **맥락 파일을 둡니다** → `inputs/<주제-slug>/`에 가진 자료를 넣습니다 (아래 §3).
 2. **시작합니다** → 채팅에 **`/strategy-plan`** 입력 (또는 "전략기획 시작"·"기획 하네스"라고 말해도 됩니다).
    - 이미 진행 중인 기획이 있으면 알아서 **이어서** 진행합니다(처음부터 다시 묻지 않습니다).
@@ -81,6 +83,8 @@
 
 ## 5. 산출물 읽는 법 — `docs/planning/<slug>/`
 
+> 📂 **완성 예시 먼저 보기**: 끝까지 돌린 참고용 산출물 = [docs/examples/quote-automation/](docs/examples/quote-automation/) (가상 사례 '견적 자동화', S0~S8 보고서까지). 결과물이 어떤 모양인지 이걸 열어 보면 가장 빠릅니다.
+
 - **`_state.md` (재개 앵커)** — *여기부터 보세요.* 단계별 진행 상태(완료/진행/대기), 현재 위치, 다음 할 일,
   그리고 **미해결 질문·결정 원장**이 한곳에 모여 있습니다. 어디까지 됐는지 이 한 파일로 파악됩니다.
 - **`REPORT.md` (검토 보고서)** — *1차 산출물.* S0–S8 진행분을 통합한 의사결정 보고서: 요약·**신뢰성 스코어카드**·동결 문제·성공기준·정합성 결론·**교차 도메인 시사점**·검증 필요 가정·다음 결정(PRD 진행 여부). 목업/PRD 없이 여기서 멈출 수 있습니다.
@@ -90,7 +94,7 @@
 - **`10-prd-handoff.md` (개발 핸드오프용 PRD)** — 개발팀에 그대로 넘기는 명세(개발 하네스 입력 호환).
 - 두 PRD는 **같은 내용의 두 표현**입니다(하나가 원본, 다른 하나가 뷰 — 따로 노는 게 아닙니다).
 
-**도메인을 가로질러 보는 곳 = `docs/reference-context-map/`** (세션 시작 시 자동 생성):
+**도메인을 가로질러 보는 곳 = `docs/reference-context-map/`** (레포에 기본 구조 동봉 — README·`_예시`):
 - `finalized/` = **확정**(고정 제약 — 현재 보고서가 맞춤) · `open/` = **검토·컨셉**(참고 가능한 의견 — 보고서에 참고 반영) · `cross-domain-analysis.md` = 의존성·충돌·**선제 완성 우선순위**.
 - 채우는 법 2가지: 킷으로 기획할 대상은 `inputs/<주제>/`에 올리면 자동 등재 / *참조만* 할 자료는 여기 `finalized·open`에 직접(헤더 한 줄). 자세히는 [inputs/README.md](inputs/README.md).
 
@@ -157,20 +161,24 @@ PRD의 모든 줄에는 출처 태그가 붙습니다. **AI가 메운 부분을 
 - **킷 자체(스킬·도구·규칙)는 임의로 바꾸지 않습니다.** 변경은 "무엇을·왜" 제안으로 만들고 사람이 승인합니다.
 - 산출 문서는 `docs/` 아래에, 한 주제는 한 문서로(복사하지 말고 링크).
 - 외부로 나가는 것(메일·게시·배포)은 한 번 나가면 회수 불가 — 실행 전 반드시 확인합니다.
+- **이 레포는 뼈대(스켈레톤)만 공유합니다.** 여러분이 넣는 `inputs/<slug>/`(컨텍스트)·킷이 만드는 `docs/planning/<slug>/`(산출물)·참조맵의 실제 도메인 파일은 `.gitignore`로 **올라가지 않고 각자 로컬에서만** 관리됩니다(공개 레포엔 README·`_예시`·`docs/examples/` 동봉 예시만).
 
 ---
 
 ## 폴더 지도
 
 ```
-Planning/
+planning-kit/
 ├── README.md                     ← (지금 이 문서) 기획팀 사용 매뉴얼
+├── planning-kit-사용설명서.html   ← 실무자용 빠른 사용설명서(브라우저)
 ├── CLAUDE.md                     ← AI 행동 거버넌스 + 작업 지도
-├── inputs/<slug>/                ← [당신이 넣는 곳] S0 원본 맥락 (context.md 등)
+├── inputs/<slug>/                ← [당신이 넣는 곳] S0 원본 맥락 — 🔒 로컬 전용(.gitignore)
 ├── docs/
+│   ├── onboarding.html                 ← 비개발자 설치 가이드(OS별)
 │   ├── planning-harness-guideline.md   ← 방법론 SSoT (S0~S12 본문)
 │   ├── planning-kit-blueprint.md       ← 킷 설계도
-│   ├── planning/<slug>/                ← [킷이 만드는 곳] _state.md + 단계별 산출 + REPORT/PRD
-│   └── reference-context-map/          ← 도메인 PRD 모음집: finalized/(확정·제약) · open/(검토·컨셉) · cross-domain-analysis.md
+│   ├── examples/quote-automation/      ← 동봉 완주 예시(결과물 모양 참고)
+│   ├── planning/<slug>/                ← [킷이 만드는 곳] 산출물 — 🔒 로컬 전용(.gitignore)
+│   └── reference-context-map/          ← 도메인 PRD 모음집: finalized/·open/(README·_예시만 공개, 실도메인은 로컬)
 └── .claude/                      ← 킷 본체 (스킬·도구·템플릿·명령·에이전트·훅) — 직접 만질 일 없음
 ```
